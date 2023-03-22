@@ -276,7 +276,10 @@ CREATE TABLE `users` (
   `user_pwd` varchar(32) NOT NULL,
   `first_name` varchar(64) NOT NULL,
   `last_name` varchar(64) NOT NULL,
+  `age` varchar(64) NOT NULL,
+  `address` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
+  `phone` varchar(64) NOT NULL,
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_thai_520_w2;
 
@@ -284,7 +287,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_pwd`, `first_name`, `last_name`, `email`, `role_id`) VALUES
+INSERT INTO `users` (`user_id`, `user_name`, `user_pwd`, `first_name`, `age`, `address`, `last_name`, `email`, `phone`, `role_id`) VALUES
 (1, 'test1', 'b59c67bf196a4758191e42f76670ceba', 'po', 'po', 'test@test', 1);
 
 --
