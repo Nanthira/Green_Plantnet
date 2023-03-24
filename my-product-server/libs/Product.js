@@ -1,10 +1,10 @@
 const mysql = require("mysql");
 
 module.exports = {
-    createProduct: async (pool, productName, productTypeId, price, stock) => {
-        var sql = "INSERT INTO products (product_name, product_type_id, price, stock) "
-                    + "VALUES (?, ?, ?, ?)";
-        sql = mysql.format(sql, [productName, productTypeId, price, stock]);
+    createProduct: async (pool, productName, productTypeId, price, size, stock) => {
+        var sql = "INSERT INTO products (product_name, product_type_id, price, size, stock) "
+                    + "VALUES (?, ?, ?, ?, ?)";
+        sql = mysql.format(sql, [productName, productTypeId, price, size, stock]);
 
         return await pool.query(sql);
     },
@@ -16,14 +16,15 @@ module.exports = {
         return await pool.query(sql);
     },
 
-    updateProduct: async (pool, productId, productName, productTypeId, price, stock) => {
+    updateProduct: async (pool, productId, productName, productTypeId, price, size, stock) => {
         var sql = "UPDATE products SET "
                 + "product_name=?,"
                 + "product_type_id=?,"
                 + "price=?,"
+                + "size=?,"
                 + "stock=? "
                 + "WHERE product_id = ?";
-        sql = mysql.format(sql, [productName, productTypeId ,price, stock, productId]);
+        sql = mysql.format(sql, [productName, productTypeId ,price, size, stock, productId]);
 
         return await pool.query(sql);
     },
@@ -45,11 +46,11 @@ module.exports = {
 
     getSumProduct: async (pool) => {
         var sql = "SELECT a.product_type_id,"
-                    + "b.product_type_name,"
+                    + "b.product_type,"
                     + "SUM(a.stock) as product_count "
                     + "FROM products a "
                     + "JOIN product_types b ON a.product_type_id = b.product_type_id "
-                    + "GROUP BY a.product_type_id, b.product_type_name";
+                    + "GROUP BY a.product_type_id, b.product_type";
         
         return await pool.query(sql);
     }
