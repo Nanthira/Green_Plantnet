@@ -5,6 +5,7 @@ const multer = require("multer");
 var md5 = require("md5");
 const path = require('path');
 const Product = require("./libs/Product");
+const Product = require("./libs/User");
 
 const app = express();
 const post = 8080;
@@ -215,6 +216,26 @@ app.post("/api/product/add", checkAuth, async (req, res) => {
         var result = await Product.createProduct(pool,
             input.product_name, input.product_type_id,
             input.price, input.size, input.stock);
+
+        res.json({
+            result: true
+        });
+    } catch (ex) {
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+});
+app.post("/api/user/add", checkAuth, async (req, res) => {
+    const input = req.body;
+
+    try {
+        var result = await User.createUser(pool,
+            input.user_name	, input.user_pwd,
+            input.first_name, input.last_name,
+            input.age, input.address,
+            input.email, input.phone	);
 
         res.json({
             result: true
