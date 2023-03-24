@@ -272,7 +272,7 @@ app.post("/api/product/update", checkAuth, async (req, res) => {
     try {
         var result = await Product.updateProduct(pool, input.product_id,
             input.product_name, input.product_type_id,
-            input.price, input.stock);
+            input.price, input.size, input.stock);
 
         res.json({
             result: true
