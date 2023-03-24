@@ -5,7 +5,7 @@ const multer = require("multer");
 var md5 = require("md5");
 const path = require('path');
 const Product = require("./libs/Product");
-const Product = require("./libs/User");
+const User = require("./libs/User");
 
 const app = express();
 const post = 8080;
