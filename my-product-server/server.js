@@ -214,7 +214,7 @@ app.post("/api/product/add", checkAuth, async (req, res) => {
     try {
         var result = await Product.createProduct(pool,
             input.product_name, input.product_type_id,
-            input.price, input.stock);
+            input.price, input.size, input.stock);
 
         res.json({
             result: true
