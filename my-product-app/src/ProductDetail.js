@@ -83,7 +83,9 @@ export default function ProductDetail() {
 
         let json = await response.json();
 
-        setImageUrl(json.data);
+if (json.result) {
+    setImageUrl(json.data);
+}
     }
 
     const getImageComponent = () => {
@@ -126,6 +128,7 @@ export default function ProductDetail() {
                 body: JSON.stringify({
                     product_name: productName,
                     product_type_id: productTypeId,
+                    size: size,
                     price: price,
                     stock: stock
                 })
@@ -142,6 +145,7 @@ export default function ProductDetail() {
             product_id: productId,
             product_name: productName,
             product_type_id: productTypeId,
+            size: size,
             price: price,
             stock: stock,
         });
@@ -171,9 +175,9 @@ export default function ProductDetail() {
     return (
         <>
             {
-                (params.productId != "add") ?
+                
                     getImageComponent()
-                    : <></>
+                    
             }
 
             <div className="container m-auto">
@@ -239,7 +243,7 @@ export default function ProductDetail() {
                             <Form.Control
                                 required
                                 type="number"
-                                value={price}
+                                value={size}
                                 min={0}
                                 placeholder="ราคาสินค้า"
                                 onChange={(e) => setSize(e.target.value)}
