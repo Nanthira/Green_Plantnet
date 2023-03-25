@@ -64,6 +64,39 @@ export default function Home() {
         }
     };
 
+  const shoppingCart = [];
+  
+  function updateCartDisplay() {
+    const cartCount = shoppingCart.length;
+    
+  }
+
+  const onCart = async(data) => {
+    let json = await API_GET("product/users"+ products )
+
+    const item = { id: data.product_id, 
+                  name: data.products, 
+                  price: data.price};
+    shoppingCart.push(item);
+    
+   
+    updateCartDisplay();
+  }
+
+  function FromCart(){
+    var removeCartButtons = document.getElementsByClassName('cart-remove')
+    console.log(removeCartButtons)
+    for (var i = 0; i < removeCartButtons.length; i++) {
+      var button = removeCartButtons[i]
+      button.addEventListener('click', removeCartItem)
+    }
+  }
+
+  function removeCartItem(event){
+    var buttonClicked = event.target
+    buttonClicked.parentElement.remove()
+  }
+  
     if (localStorage.getItem("access_token")) {
         return (
             <div className="background">
@@ -126,57 +159,6 @@ export default function Home() {
         );
     }
 
-<<<<<<< HEAD
-    fetchData();
-  }, [productTypeId]);
-
-  const fetchProducts = async () => {
-    let json = await API_GET("products/type/" + productTypeId);
-    setProducts(json.data);
-  };
-
-  const onDelete = async (data) => {
-    let json = await API_POST("product/delete", {
-      product_id: data.product_id,
-    });
-
-    if (json.result) {
-      fetchProducts();
-    }
-  };
-
-  const shoppingCart = [];
-  
-  function updateCartDisplay() {
-    const cartCount = shoppingCart.length;
-    
-  }
-
-  const onCart = async(data) => {
-    let json = await API_GET("product/users"+ products )
-
-    const item = { id: data.product_id, 
-                  name: data.products, 
-                  price: data.price};
-    shoppingCart.push(item);
-    
-   
-    updateCartDisplay();
-  }
-
-  function FromCart(){
-    var removeCartButtons = document.getElementsByClassName('cart-remove')
-    console.log(removeCartButtons)
-    for (var i = 0; i < removeCartButtons.length; i++) {
-      var button = removeCartButtons[i]
-      button.addEventListener('click', removeCartItem)
-    }
-  }
-
-  function removeCartItem(event){
-    var buttonClicked = event.target
-    buttonClicked.parentElement.remove()
-  }
 
   if (localStorage.getItem("access_token")) {
     return (
@@ -244,7 +226,5 @@ export default function Home() {
   }
 
   return <Navigate to="/" replace />;
-=======
     return <Navigate to="/" replace />;
->>>>>>> 7577a9a007935b4017e03f2e8957caf1b442fb74
 }
