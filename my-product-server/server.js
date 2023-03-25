@@ -8,7 +8,7 @@ const Product = require("./libs/Product");
 const User = require("./libs/User");
 
 const app = express();
-const post = 8080;
+const port = 8080;
 
 const bodyParser = require('body-parser');
 
@@ -29,7 +29,7 @@ var pool = mysql.createPool({
 
 pool.query = util.promisify(pool.query);
 
-app.listen(post, () => {
+app.listen(port, () => {
 
 });
 app.use(express.static(path.resolve(__dirname, 'build')));
