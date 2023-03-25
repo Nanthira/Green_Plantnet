@@ -6,37 +6,38 @@ export default function ProductItem(props) {
         props.onDelete(props.data);
     }
 
-    const onAddToCart = async () => {
-        const cartItem = {
-          product_id: props.data.product_id,
-          quantity: 1
-        };
-      
-        // Send a POST request to your backend API to add the item to the cart in the database
-        const response = await fetch('/api/cart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(cartItem)
-        });
-      
-        if (response.ok) {
-          const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-          cartItems.push(props.data);
-          localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    const onAddToCart = async (order_id, user_id, product_id, price) => {
+        const order_id = props.order_id;
+        const user_id = props.user_id;
+        const product_id = props.data.product_id;
+        const price = props.data.price;
+        try {
+          const result = await addToCart(order_id, user_id, product_id, price);
+          console.log("Add to cart successful");
+        } catch (error) {
+          console.log(error);
         }
-      }
-      
+      };
 
     return (
-        <div className="rounded border shadow-sm mt-3" style={{ width: "400px", height: "400px" }}>
-            <div style={{ position: "relative", width: "100%", height: "200px" }}>
-                <img src={`http://localhost:8080/images/${props.data.image_url}`} style={{ width: "200px", height: "200px", position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)" }} />
+        <div    className="rounded border shadow-sm mt-3" 
+                style={{    width:      "400px",
+                            height:     "400px" }}>
+            <div style={{   position:   "relative",
+                            width:      "100%",
+                            height:     "200px" }}>
+                <img src={`http://localhost:8080/images/${props.data.image_url}`} 
+                style={{    width:      "200px",
+                            height:     "200px",
+                            position:   "absolute", 
+                            top:        0, 
+                            left:       "50%",
+                            transform:  "translateX(-50%)" }} />
             </div>
-            <div style={{ padding: "10px" }}>
+            <div style={{   padding:    "10px" }}>
                 <h5 className="text-rpimary">{props.data.product_name}</h5>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{display:   "flex",
+                            justifyContent: "space-between" }}>
                     <div>
                         <span>ขนาดกระถาง : {props.data.size} นิ้ว</span>
                     </div>

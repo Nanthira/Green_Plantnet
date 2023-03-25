@@ -9,6 +9,8 @@ export default function Home() {
     const [productTypes, setProductTypes] = useState([]);
     const [productTypeId, setProductTypeId] = useState(0);
     const [products, setProducts] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         async function fetchData() {
@@ -64,38 +66,52 @@ export default function Home() {
         }
     };
 
-  const shoppingCart = [];
-  
-  function updateCartDisplay() {
-    const cartCount = shoppingCart.length;
+    {products && products.map((item) => (
+      <ProductItem
+        key={item.product_id}
+        data={item}
+        onDelete={onDelete}
+      />
+    ))}
     
-  }
-
-  const onCart = async(data) => {
-    let json = await API_GET("product/users"+ products )
-
-    const item = { id: data.product_id, 
-                  name: data.products, 
-                  price: data.price};
-    shoppingCart.push(item);
+    const handleAddToCart = async (product) => {
+      const cartItem = {
+        product_id: product.product_id,
+        user_id: user.user_id, 
+        price: product.price,
+        quantity: 1,
+      };
     
-   
-    updateCartDisplay();
-  }
-
-  function FromCart(){
-    var removeCartButtons = document.getElementsByClassName('cart-remove')
-    console.log(removeCartButtons)
-    for (var i = 0; i < removeCartButtons.length; i++) {
-      var button = removeCartButtons[i]
-      button.addEventListener('click', removeCartItem)
+      const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartItem)
+      });
+    
+      if (response.ok) {
+        setCartItems([...cartItems, cartItem]);
+      }
     }
-  }
-
-  function removeCartItem(event){
-    var buttonClicked = event.target
-    buttonClicked.parentElement.remove()
-  }
+    
+    useEffect(() => {
+      async function fetchUser() {
+        const response = await fetch("http://localhost:8080/api/user", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        });
+  
+        let json = await response.json();
+        setUser(json.data);
+      }
+  
+      fetchUser();
+    }, []);
   
     if (localStorage.getItem("access_token")) {
         return (
