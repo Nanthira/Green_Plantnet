@@ -340,3 +340,49 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+---
+---
+---
+CREATE TABLE `productz` (
+  `productx_id` int(11) NOT NULL,
+  `productx_name` varchar(64) NOT NULL,
+  `productx_type_id` varchar(16) NOT NULL,
+  `price` int(16) NOT NULL,
+  `image_url` varchar(64) NOT NULL,
+  `size` int(11) NOT NULL,
+  `stock` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_thai_520_w2;
+
+--
+-- Dumping data for table `productz`
+--
+
+INSERT INTO `productz` (`productx_id`, `productx_name`, `productx_type_id`, `price`, `image_url`, `stock`) VALUES
+(1, 'ประยุท', 1, 8, '1p.jpg', 1),
+(2, 'บิ้กป้อม', 1, 7, 'jc.jpg', 1),
+(3, 'โตโน่"', 3, 25, 'vk.jpg', 1),
+(4, 'จารย์แดง', 2, 13, 'ez.jpg', 1),
+(5, 'ลุงพล"', 1, 50, 'd3.jpg', 1),
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productx_types`
+--
+
+CREATE TABLE `productx_types` (
+  `productx_type_id` int(11) NOT NULL,
+  `productx_type_name` varchar(64) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_thai_520_w2;
+
+--
+-- Dumping data for table `productx_types`
+--
+
+INSERT INTO `productx_types` (`productx_type_id`, `productx_type_name`) VALUES
+('1', 'male'),
+('2', 'female'),
+('3', 'ไม่ระบุ'),
+
+-- --------------------------------------------------------
