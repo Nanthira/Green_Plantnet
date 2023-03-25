@@ -335,7 +335,7 @@ app.post("/api/product/upload/:productId", checkAuth, (req, res) => {
     });
 });
 
-app.get("/api/report", checkAuth, async (req, res) => {
+app.get("/api/reportcata", checkAuth, async (req, res) => {
     try {
         var result = await Product.getSumProduct(pool);
 
