@@ -6,6 +6,29 @@ export default function ProductItem(props) {
         props.onDelete(props.data);
     }
 
+    const onAddToCart = async () => {
+        const cartItem = {
+          product_id: props.data.product_id,
+          quantity: 1
+        };
+      
+        // Send a POST request to your backend API to add the item to the cart in the database
+        const response = await fetch('/api/cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cartItem)
+        });
+      
+        if (response.ok) {
+          const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+          cartItems.push(props.data);
+          localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+      }
+      
+
     return (
         <div className="rounded border shadow-sm mt-3" style={{ width: "400px", height: "400px" }}>
             <div style={{ position: "relative", width: "100%", height: "200px" }}>
@@ -24,6 +47,7 @@ export default function ProductItem(props) {
                 <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
                     <Link to={`/product/${props.data.product_id}`} className="btn btn-outline-primary me-3">แก้ไข</Link>
                     <button type="button" className="btn btn-outline-danger" onClick={onDelete}>ลบ</button>
+                    <button type="button" className="btn btn-outline-primary" onClick={onAddToCart}>Add to Cart</button>
                 </div>
             </div>
         </div>

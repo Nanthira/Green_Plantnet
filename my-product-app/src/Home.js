@@ -100,20 +100,20 @@ export default function Home() {
     if (localStorage.getItem("access_token")) {
         return (
             <div className="background">
-                <div class="nav container">
+                <div className="nav container">
                     <a href="#" className="logo">
                         Green plantnet
                     </a>
-                    <i class="bx bx-shopping-bag" id="cart-icon"></i>
-                    <div class="cart">
-                        <h2 class="cart-title">Your Cart</h2>
-                        <div class="cart-content">
-                            <i class="bx bxs-trash-alt cart-remove"></i>
+                    <i className="bx bx-shopping-bag" id="cart-icon"></i>
+                    <div className="cart">
+                        <h2 className="cart-title">Your Cart</h2>
+                        <div className="cart-content">
+                            <i className="bx bxs-trash-alt cart-remove"></i>
                         </div>
-                        <div class="total">
-                            <div class="total-title">Total</div>
+                        <div className="total">
+                            <div className="total-title">Total</div>
                         </div>
-                        <button type="button" class="btn-buy">
+                        <button type="button" className="btn-buy">
                             Buy
                         </button>
                     </div>
