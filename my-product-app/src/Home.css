@@ -116,3 +116,30 @@
     border-radius: 20px;
   }
   
+  #cart-icon {
+    font-size: 1.1rem;
+    color: var(-- text-color);
+    font-weight: 400;
+}
+
+.cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 360px;
+    min-height: 100vh;
+    padding: 20px;
+    background: var(--bg-color);
+    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+}
+
+.add-cart:hover {
+
+}
+
+.cart-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+}
