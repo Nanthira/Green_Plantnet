@@ -20,7 +20,7 @@ root.render(
       <Route path="/" element={<Login />} />
       <Route path="home" element={<Home />} />
       <Route path="/product/:productId" element={<ProductDetail />} />
-      <Route path="report" element={<Report />} />
+      <Route path="report" element={<Reportcata />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')
