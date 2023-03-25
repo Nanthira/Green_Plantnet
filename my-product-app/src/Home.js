@@ -5,6 +5,27 @@ import ProductItem from "./ProductItem";
 import "./Home.css";
 import img1 from "./images/istockphoto-1254474165-170667a.jpg";
 
+export const addToCart = async (order_id, user_id, product_id, price) => {
+  try {
+    const response = await fetch(`http://localhost:8080/orders/${order_id}/products`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        product_id: product_id,
+        price: price,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export default function Home() {
     const [productTypes, setProductTypes] = useState([]);
     const [productTypeId, setProductTypeId] = useState(0);
