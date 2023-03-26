@@ -12,17 +12,21 @@ export default function ProductItem(props) {
     const product_id = props.data.product_id;
     const price = props.data.price;
     try {
+      if (!order_id) {
+        throw new Error("Missing order_id parameter");
+      }
       const result = await addToCart(order_id, user_id, product_id, price);
       console.log("Add to cart successful");
     } catch (error) {
       console.log(error);
     }
   };
-    
+  
   return (
     <div
       className="rounded border shadow-sm mt-3"
-      style={{ width: "400px", height: "400px" }}>
+      style={{ width: "400px", height: "400px" }}
+    >
       <div style={{ position: "relative", width: "100%", height: "200px" }}>
         <img
           src={`http://localhost:8080/images/${props.data.image_url}`}
@@ -54,9 +58,25 @@ export default function ProductItem(props) {
           }}
         >
           <Link
-            to={`/product/${props.data.product_id}`} className="btn btn-outline-primary me-3"> แก้ไข </Link>
-          <button type="button" className="btn btn-outline-danger" onClick={onDelete} > ลบ</button>
-          <button type="button" className="btn btn-outline-primary" onClick={onAddToCart}> Add to Cart </button>
+            to={`/product/${props.data.product_id}`}
+            className="btn btn-outline-primary me-3"
+          >
+            แก้ไข
+          </Link>
+          <button
+            type="button"
+            className="btn btn-outline-danger"
+            onClick={onDelete}
+          >
+            ลบ
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={onAddToCart}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>

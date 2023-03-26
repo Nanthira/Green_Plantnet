@@ -1,7 +1,7 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
 import { API_GET } from "./api";
+import ProductItem from "./ProductItem"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,7 +11,6 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import ProductItem from "./ProductItem";
 
 ChartJS.register(
     CategoryScale,
@@ -24,7 +23,7 @@ ChartJS.register(
 
 export const options = {
     responsive: true,
-    plugins: {
+    Plugins: {
         legend: {
             position: 'top',
         },
@@ -35,7 +34,7 @@ export const options = {
     },
 };
 
-export default function Report() {
+export default function Repost() {
     const [isLoading, setIsLoading] = useState(false);
     const [chartData, setChartData] = useState({});
     const [store, setStore] = useState([]);
@@ -53,7 +52,7 @@ export default function Report() {
 
             for (var i = 0; i < json.data.length; i++) {
                 var item = json.data[i];
-                labels.push(item.product_type_name);
+                labels.push(item.product_type);
                 data.push(item.product_count);
             }
 
@@ -63,7 +62,7 @@ export default function Report() {
                     {
                         label: "จำนวนสินค้าแยกตามประเภทสินค้า",
                         data: data,
-                        backgroundColor: "rgba(255, 99, 132, 0.5)"
+                        backgroundColor: "rgba(25, 91, 192, 0.5)"
                     }
                 ]
             }
@@ -77,15 +76,13 @@ export default function Report() {
 
     const getChart = () => {
         if (isLoading) {
-            return <Bar 
-                options={options} 
-                data={chartData} 
+            return <Bar options={options}
+                data={chartData}
                 ref={chartRef}
                 onClick={onClick} />;
         }
 
         return <></>;
-
     }
 
     const onClick = async (event) => {
@@ -108,7 +105,7 @@ export default function Report() {
                 }
             </div>
 
-            <div className="container-fluid mt-3">
+            <div className="container-fluid mt-3 d-flex flex-wrap justify-content-center align-items-start">
                 {
                     productStore.map(item => (
                         <ProductItem
@@ -119,4 +116,5 @@ export default function Report() {
             </div>
         </>
     );
+
 }

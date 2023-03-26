@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 //import App from './App';
 import Login from './Login';
@@ -12,8 +12,6 @@ import {
 import Home from './Home';
 import ProductDetail from './ProductDetail';
 import Report from './Report';
-////////////
-import ProductxDetail from './ProductxDetail';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,12 +20,10 @@ root.render(
       <Route path="/" element={<Login />} />
       <Route path="home" element={<Home />} />
       <Route path="/product/:productId" element={<ProductDetail />} />
-      <Route path="/productx/:productxId" element={<ProductxDetail />} />
-
-      <Route path="report" element={<Reportcata />} />
+      <Route path="report" element={<Report />} />
     </Routes>
-  </BrowserRouter>,
-  document.getElementById('root')
+  </BrowserRouter>
 );
+
 
 reportWebVitals();
