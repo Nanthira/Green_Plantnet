@@ -5,6 +5,7 @@ import ProductItem from "./ProductItem";
 import "./Home.css";
 import img1 from "./images/istockphoto-1254474165-170667a.jpg";
 
+<<<<<<< Updated upstream
 export const addToCart = async (order_id, user_id, product_id, price) => {
   try {
     const response = await fetch(`http://localhost:8080/orders/${order_id}/products`, {
@@ -25,6 +26,9 @@ export const addToCart = async (order_id, user_id, product_id, price) => {
     throw error;
   }
 };
+=======
+import ProductxItem from "./ProductxItem";
+>>>>>>> Stashed changes
 
 export default function Home() {
     const [productTypes, setProductTypes] = useState([]);
@@ -261,7 +265,101 @@ export default function Home() {
       </div>
     );
   }
+  const [productxTypes, setProductxTypes] = useState([]);
+  const [productxTypeId, setProductxTypeId] = useState(0);
+  const [productz, setProductz] = useState([]);
 
+  useEffect(() => {
+      async function fetchData() {
+          const response = await fetch(
+              "http://localhost:8080/api/productx_types",
+              {
+                  method: "GET",
+                  headers: {
+                      Accept: "application/json",
+                      'content-Type': 'application/json',
+                      Authorization: "Bearer " + localStorage.getItem("access_token")
+                  }
+              }
+          );
+
+          let json = await response.json();
+          setProductxTypes(json.data);
+      }
+
+      fetchData();
+  }, []);
+
+  useEffect(() => {
+      async function fetchData() {
+          const response = await fetch(
+              "http://localhost:8080/api/productz/type/" + productxTypeId,
+              {
+                  method: "GET",
+                  headers: {
+                      Accept: "application/json",
+                      'content-Type': 'application/json',
+                      Authorization: "Bearer " + localStorage.getItem("access_token")
+                  }
+              }
+          );
+
+          const json = await response.json();
+          setProductz(json.data);
+      }
+
+      fetchData();
+  }, [productxTypeId]);
+
+  const fetchProductz = async () => {
+      let json = await API_GET("productz/type/" + productxTypeId);
+      setProductz(json.data);
+  }
+
+  const onDeletex = async (data) => {
+      let json = await API_POST("productx/delete", {
+          productx_id: data.productx_id
+      });
+
+      if (json.result) {
+          fetchProductz();
+      }
+  }
+
+
+  if (localStorage.getItem("access_token")) {
+      return (
+          <div className="container">
+              <select value={productxTypeId} onChange={(e) => setProductxTypeId(e.target.value)}>
+                  <option value={0}>เพศ</option>
+                  {
+                      productxTypes.map(item => (
+                          <option key={item.productx_type_id} value={item.productx_type_id}>
+                              {item.productx_type_name}
+                          </option>
+                      ))
+                  }
+              </select>
+
+              <Link to={"/productx/add"} className="btn btn-outline-primary me-5">เพิ่ม</Link>
+              
+              <Link to={"/report"} className="btn btn-outline-primary me-5">รายงาน</Link>
+              
+              <div className="container mt-3">
+                  {
+                      productz.map(item => (
+                          <ProductxItem 
+                          key={item.productx_id}
+                          data={item} 
+                          onDelete={onDeletex}/>
+                      ))
+                  }
+              </div>
+          </div>
+
+      );
+
+  }
   return <Navigate to="/" replace />;
     return <Navigate to="/" replace />;
 }
