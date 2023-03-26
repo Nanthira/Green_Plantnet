@@ -4,8 +4,7 @@ var jwt = require("jsonwebtoken");
 const multer = require("multer");
 var md5 = require("md5");
 const path = require('path');
-//const Product = require("./libs/Product");
-const Product = require("./libs/Productx");
+const Product = require("./libs/Product");
 const User = require("./libs/User");
 ////
 const Productx = require("./libs/Productx");
